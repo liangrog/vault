@@ -10,9 +10,7 @@ import (
 	"crypto/hmac"
 	"crypto/rand"
 	"crypto/sha256"
-	"encoding/hex"
 	"errors"
-	"strings"
 
 	"golang.org/x/crypto/pbkdf2"
 )
@@ -51,7 +49,7 @@ func KeyGen(password string, salt []byte) *CipherKey {
 	k := pbkdf2.Key(
 		[]byte(password),
 		salt,
-		iteration,
+		Iteration,
 		(CipherKeyLength + HMACKeyLength + IVLength),
 		sha256.New,
 	)
@@ -73,7 +71,7 @@ func SaltGen(n int) ([]byte, error) {
 
 // Encrypt or decrypt the given data and key.
 // Use "encrypt" and "decrypt' for CipherType to determine the cipher direction.
-func CipherData(CipherType string, data []byte, key *cipherKey) ([]byte, error) {
+func CipherData(CipherType string, data []byte, key *CipherKey) ([]byte, error) {
 	var output []byte
 
 	block, err := aes.NewCipher(key.Key)
@@ -83,7 +81,7 @@ func CipherData(CipherType string, data []byte, key *cipherKey) ([]byte, error) 
 
 	stream := cipher.NewCTR(block, key.IV)
 
-	switch cipherType {
+	switch CipherType {
 	case "encrypt":
 		data = AESBlockPad(data)
 		output = make([]byte, len(data))

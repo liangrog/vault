@@ -2,18 +2,13 @@
 package vault
 
 import (
-	"bytes"
-	"crypto/aes"
-	"crypto/cipher"
 	"crypto/hmac"
-	"crypto/rand"
 	"crypto/sha256"
 	"encoding/hex"
 	"errors"
 	"strings"
 
 	"github.com/liangrog/ansible-vault/avcipher"
-	"golang.org/x/crypto/pbkdf2"
 )
 
 const (
@@ -41,9 +36,14 @@ func Wrap(data []byte, length int) string {
 
 // To be encrypted data part in a vault file.
 type Vault struct {
-	Data     []byte
+	// The encrypted data.
+	Data []byte
+
+	// Data checksum
 	CheckSum []byte
-	Salt     []byte
+
+	// Salt string
+	Salt []byte
 }
 
 // Encypt data using given the password. The output is hash encoded.
@@ -56,7 +56,7 @@ func (v *Vault) Encrypt(data []byte, password string) ([]byte, error) {
 	}
 
 	lines := strings.SplitN(string(data), "\n", 2)
-	if strings.TrimSpace(lines[0]) == header {
+	if strings.TrimSpace(lines[0]) == HEADER {
 		return nil, errors.New("Given data has already been encrypted according to header")
 	}
 
@@ -68,14 +68,14 @@ func (v *Vault) Encrypt(data []byte, password string) ([]byte, error) {
 
 	key := avcipher.KeyGen(password, v.Salt)
 
-	v.data, err = avcipher.CipherData("encrypt", data, key)
+	v.Data, err = avcipher.CipherData("encrypt", data, key)
 	if err != nil {
 		return nil, err
 	}
 
 	// Generate checksum
-	mac := hmac.New(sha256.New, key.hmacKey)
-	mac.Write(v.data)
+	mac := hmac.New(sha256.New, key.HMACKey)
+	mac.Write(v.Data)
 	v.CheckSum = mac.Sum(nil)
 
 	return v.encode(), nil
@@ -104,7 +104,7 @@ func (v *Vault) encode() []byte {
 func (v *Vault) decode(str string) error {
 	lines := strings.SplitN(str, "\n", 2)
 
-	if strings.TrimSpace(lines[0]) != header {
+	if strings.TrimSpace(lines[0]) != HEADER {
 		return errors.New("Invalid vault file format")
 	}
 
@@ -153,7 +153,7 @@ func (v *Vault) Decrypt(password string, data []byte) ([]byte, error) {
 	key := avcipher.KeyGen(password, v.Salt)
 
 	// Check checksum in case data is tempered
-	if !avcipher.IsCheckSumValid(v.CheckSum, v.Data, key) {
+	if !avcipher.IsCheckSumValid(v.CheckSum, v.Data, key.HMACKey) {
 		return nil, errors.New("Checksum doesn't match")
 	}
 
