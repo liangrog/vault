@@ -1,42 +1,42 @@
-# cfctl
-AWS CloudFormation DevOp tool
+# ansible-vault
+ansible-vault is developed as a [go module](https://github.com/golang/go/wiki/Modules) which can be used by other go tools for data encryption or decryption.
 
-## Requirements
-[Desgin princples and requirements](docs/requirements.md)
+It is designed to follow the exact [spec of Ansible Vault 1.1](https://docs.ansible.com/ansible/latest/user_guide/vault.html#vault-payload-format-1-1) so the data it encrypted can be decrypted by Ansible Vault and vice versa.
+
+## Module Docs
+Please refer to [GoDoc](https://godoc.org/github.com/liangrog/ansible-vault)
+
+## Example
+```go
+package main
+
+import (
+    "fmt"
+
+    "github.com/liangrog/ansible-vault/vault"
+)
+
+func main() {
+    plainText := "ansible vault secret 1.1"
+    password  := "password123"
+
+    v := new(vault.Vault)
+
+    // To encrypt
+    secret, err := v.Encrypt([]byte(plainText), password)
+    if err != nil {
+        fmt.Println(err)
+    }
+
+    fmt.Println(secret)
 
 
-Trello Board
----
-[github-cfctl](https://trello.com/b/3etT9edo/github-cfctl)
-
-## Ansible Vault
-cfctl provides file encryption/decryption implementation as per [ansible-vault 1.1 spec](https://docs.ansible.com/ansible/latest/user_guide/vault.html#vault-payload-format-1-1). The encrypted files are interchangable with ansible-vault, in other words, the files encrypted by cfctl or ansible-vault can be decrypted by either one of them.
-
-The command group is `cfctl vault`
-
-The password lookup order is defined as below:
-1. CLI option `--password`
-2. CLI option `--password-file`
-3. Environment variable `CFCTL_VAULT_PASSWORD`
-4. Environment variable `CFCTL_VAULT_PASSWORD_FILE`
-5. Default password file `$HOME/.cfctl_vault_password`
-6. Shell prompt
-
-
-Only **one** password can be used during encryption.
-
-For decryption, multiple passwords can be seperated by using **comma delimiter (,)**. For example:
-```
-    password1,password2,password3...
-```
-
-All passwords will be tried until one that works. 
-
-Here are some simple examples how to use the command:
-```
-    # To encrypt
-    $ cfctl vault encrypt file1 file2 file3 --password secret
-
-    # To decrypt
-    $ cfctl vault decrypt file1 file2 file3 --password secret
+    // To decrypt
+    plainSecret, err := v.Decrypt(password, secret)
+    if err != nil {
+        fmt.Println(err)
+    }
+   
+    fmt.Println(plainSecret)
+}
 ```
