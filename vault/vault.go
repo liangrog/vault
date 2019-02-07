@@ -56,11 +56,6 @@ func (v *Vault) Encrypt(data []byte, password string) ([]byte, error) {
 		return nil, errors.New("Empty password")
 	}
 
-	lines := strings.SplitN(string(data), "\n", 2)
-	if strings.TrimSpace(lines[0]) == HEADER {
-		return nil, errors.New("Given data has already been encrypted according to header")
-	}
-
 	// Get salt
 	v.Salt, err = avcipher.SaltGen(avcipher.SaltLength)
 	if err != nil {
