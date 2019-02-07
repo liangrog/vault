@@ -6,40 +6,39 @@
 //
 // Example
 //
-//		package main
+//	package main
 //
-// 		import (
-//     		"fmt"
+//	import (
+//		"fmt"
 //
-//     		"github.com/liangrog/ansible-vault/vault"
-// 		)
+//		"github.com/liangrog/ansible-vault/vault"
+//	)
 //
-// 		func main() {
-//     		plainText := "ansible vault secret 1.1"
-//     		password  := "password123"
+//	func main() {
+//		plainText := "ansible vault secret 1.1"
+//		password  := "password123"
 //
-//     		v := new(vault.Vault)
+//		v := new(vault.Vault)
 //
-//     		// To encrypt
-//     		secret, err := v.Encrypt([]byte(plainText), password)
-//     		if err != nil {
-//         		fmt.Println(err)
-//     		}
+//		// To encrypt
+//		secret, err := v.Encrypt([]byte(plainText), password)
+//		if err != nil {
+//			fmt.Println(err)
+//		}
 //
-//     		fmt.Printf("%s\n", secret)
+//		fmt.Printf("%s\n", secret)
 //
-//     		// To decrypt
-//     		plainSecret, err := v.Decrypt(password, secret)
-//     		if err != nil {
-//         		fmt.Println(err)
-//     		}
+//		// To decrypt
+//		plainSecret, err := v.Decrypt(password, secret)
+//		if err != nil {
+//			fmt.Println(err)
+//		}
 //
-//     		fmt.Printf("%s\n", plainSecret)
-// 		}
-//```
+//		fmt.Printf("%s\n", plainSecret)
+//	}
 //
 // The Output:
-// ```
+//
 // 		$ANSIBLE_VAULT;1.1;AES256
 // 		31326233666231326135313164643631323064373739663635323861366565633666646135316631
 // 		6335613566396562323836323338313130343265363035390a653931346633376335326530323266
