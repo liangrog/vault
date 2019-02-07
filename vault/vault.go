@@ -159,3 +159,14 @@ func (v *Vault) Decrypt(password string, data []byte) ([]byte, error) {
 
 	return avcipher.CipherData("decrypt", v.Data, key)
 }
+
+// Check if file has Ansible Vault header
+func (v *Vault) HasVaultHeader(data []byte) bool {
+	lines := strings.SplitN(str, "\n", 2)
+
+	if strings.TrimSpace(lines[0]) != HEADER {
+		return false
+	}
+
+	return true
+}
