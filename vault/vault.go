@@ -1,4 +1,5 @@
-// Vault package encrypt and decrypt data as per Ansible Vault 1.1 format.
+// Vault package provide functions that take in plain text data or
+// enncrypted data then encrypt and decrypt them using avcipher package.
 package vault
 
 import (
@@ -15,7 +16,7 @@ const (
 	// Ansible vault version header
 	HEADER = "$ANSIBLE_VAULT;1.1;AES256"
 
-	// Format
+	// Format output line length
 	CharPerLine = 80
 )
 

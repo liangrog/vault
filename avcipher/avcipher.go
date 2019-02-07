@@ -1,6 +1,6 @@
 // The cipher package provide functions that can be used
 // to encrypt or decrypt data that complys to Ansible Vault 1.1
-// specification. The spec can be found in URL (https://docs.ansible.com/ansible/latest/user_guide/vault.html#vault-payload-format-1-1).
+// specification.
 package avcipher
 
 import (
