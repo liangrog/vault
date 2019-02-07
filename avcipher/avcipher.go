@@ -1,5 +1,5 @@
 // The cipher package provide functions that can be used
-// to encrypt or decrypt data that complys to Ansible Vault 1.1
+// to encrypt or decrypt data that complies to Ansible Vault 1.1
 // specification.
 package avcipher
 
