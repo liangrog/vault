@@ -32,6 +32,17 @@ const (
 	Iteration = 10000
 )
 
+// Action type
+type Action string
+
+const (
+	// Encrypt action
+	ENCRYPT Action = "encrypt"
+
+	// Decrypt action
+	DECRYPT Action = "decrypt"
+)
+
 // Key used to cipher
 type CipherKey struct {
 	// Cipher Key
@@ -70,8 +81,8 @@ func SaltGen(n int) ([]byte, error) {
 }
 
 // Encrypt or decrypt the given data and key.
-// Use "encrypt" and "decrypt' for CipherType to determine the cipher direction.
-func CipherData(CipherType string, data []byte, key *CipherKey) ([]byte, error) {
+// Use ENCRYPT and DECRYPT for cipher action to determine the cipher direction.
+func CipherData(action Action, data []byte, key *CipherKey) ([]byte, error) {
 	var output []byte
 
 	block, err := aes.NewCipher(key.Key)
@@ -81,12 +92,12 @@ func CipherData(CipherType string, data []byte, key *CipherKey) ([]byte, error) 
 
 	stream := cipher.NewCTR(block, key.IV)
 
-	switch CipherType {
-	case "encrypt":
+	switch action {
+	case ENCRYPT:
 		data = AESBlockPad(data)
 		output = make([]byte, len(data))
 		stream.XORKeyStream(output, data)
-	case "decrypt":
+	case DECRYPT:
 		decryptedData := make([]byte, len(data))
 		stream.XORKeyStream(decryptedData, data)
 		output, err = AESBlockUnpad(decryptedData)
