@@ -64,7 +64,7 @@ func (v *Vault) Encrypt(data []byte, password string) ([]byte, error) {
 
 	key := avcipher.KeyGen(password, v.Salt)
 
-	v.Data, err = avcipher.CipherData("encrypt", data, key)
+	v.Data, err = avcipher.CipherData(avcipher.ENCRYPT, data, key)
 	if err != nil {
 		return nil, err
 	}
@@ -153,7 +153,7 @@ func (v *Vault) Decrypt(password string, data []byte) ([]byte, error) {
 		return nil, errors.New("Checksum doesn't match")
 	}
 
-	return avcipher.CipherData("decrypt", v.Data, key)
+	return avcipher.CipherData(avcipher.DECRYPT, v.Data, key)
 }
 
 // Check if file has Ansible Vault header
