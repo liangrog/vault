@@ -18,10 +18,8 @@
 //		plainText := "ansible vault secret 1.1"
 //		password  := "password123"
 //
-//		v := new(vault.Vault)
-//
 //		// To encrypt
-//		secret, err := v.Encrypt([]byte(plainText), password)
+//		secret, err := vault.Encrypt([]byte(plainText), password)
 //		if err != nil {
 //			fmt.Println(err)
 //		}
@@ -29,7 +27,7 @@
 //		fmt.Printf("%s\n", secret)
 //
 //		// To decrypt
-//		plainSecret, err := v.Decrypt(password, secret)
+//		plainSecret, err := vault.Decrypt(password, secret)
 //		if err != nil {
 //			fmt.Println(err)
 //		}
@@ -46,4 +44,4 @@
 // 		3962366236326661340a393665306530396536343134366464303561633661393763303134396232
 // 		35633436363033646332626334363061326332343731383535363334666665653533
 // 		ansible vault secret 1.1
-package ansiblevault
+package vault
