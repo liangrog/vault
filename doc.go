@@ -11,7 +11,7 @@
 //	import (
 //		"fmt"
 //
-//		"github.com/liangrog/ansible-vault/vault"
+//		"github.com/liangrog/vault"
 //	)
 //
 //	func main() {

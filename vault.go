@@ -1,4 +1,3 @@
-// This package contains facade functions for the vault module.
 package vault
 
 import (
