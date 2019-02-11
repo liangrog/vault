@@ -14,7 +14,7 @@ func Encrypt(data []byte, password string) ([]byte, error) {
 }
 
 // Facade decrypt function.
-// It decrypt given byte data inansible-vault 1.1
+// It decrypt given byte data in ansible-vault 1.1
 // format using provided password into plain text.
 func Decrypt(password string, data []byte) ([]byte, error) {
 	return v.Decrypt(password, data)
