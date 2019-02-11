@@ -1,4 +1,4 @@
-# ansible-vault (golang)
+# vault (golang)
 ansible-vault is developed as a [go module](https://github.com/golang/go/wiki/Modules) which can be used by other go tools for data encryption or decryption.
 
 It is designed to follow the exact [spec of Ansible Vault 1.1](https://docs.ansible.com/ansible/latest/user_guide/vault.html#vault-payload-format-1-1) so the data it encrypted can be decrypted by Ansible Vault or vice versa.

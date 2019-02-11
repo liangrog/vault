@@ -1,4 +1,4 @@
-module github.com/liangrog/ansible-vault
+module github.com/liangrog/vault
 
 require (
 	github.com/stretchr/testify v1.3.0

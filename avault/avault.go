@@ -9,7 +9,7 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/liangrog/ansible-vault/avcipher"
+	"github.com/liangrog/vault/avcipher"
 )
 
 const (

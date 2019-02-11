@@ -1,7 +1,7 @@
 package vault
 
 import (
-	"github.com/liangrog/ansible-vault/avault"
+	"github.com/liangrog/vault/avault"
 )
 
 var v = new(avault.Vault)
