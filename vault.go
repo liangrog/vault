@@ -13,7 +13,7 @@ func Encrypt(data []byte, password string) ([]byte, error) {
 	return v.Encrypt(data, password)
 }
 
-// Facade decrypt function
+// Facade decrypt function.
 // It decrypt given byte data inansible-vault 1.1
 // format using provided password into plain text.
 func Decrypt(password string, data []byte) ([]byte, error) {
