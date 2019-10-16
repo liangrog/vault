@@ -1,5 +1,5 @@
 # vault (golang)
-[![Version](https://img.shields.io/github/v/release/liangrog/vault)](https://github.com/liangrog/releases)
+[![Version](https://img.shields.io/github/v/release/liangrog/vault)](https://github.com/liangrog/vault/releases)
 [![GoDoc](https://godoc.org/github.com/liangrog/vault?status.svg)](https://godoc.org/github.com/liangrog/vault)
 
 
